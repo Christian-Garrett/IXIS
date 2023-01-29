@@ -166,12 +166,26 @@ full_table_df = pd.merge(full_table_df, monthly_transactions_df, on='month_year'
 Create the first excel output sheet deliverable by aggregating the data on year and device category
 
 '''
-
 sheet1 = full_table_df.groupby(['month_year', 'dim_deviceCategory'])['sessions', 'transactions', 'QTY', 'ECR'].sum()
 sheet1 = sheet1.round(2)
 sheet1 = sheet1.reset_index()
 sheet1['month_year'] = sheet1['month_year'].astype(str)
 sheet1
+
+'''
+Get Device Overall Totals
+
+'''
+device_grouped_df = sheet1.groupby(['dim_deviceCategory'])['sessions', 'transactions', 'QTY', 'ECR'].sum()
+print('\nDevice Totals: \n', device_grouped_df)
+
+
+'''
+Get Browser Overall Totals
+
+'''
+browser_grouped_df = full_table_df.groupby(['dim_browser'])['sessions', 'transactions', 'QTY', 'ECR'].sum().sort_values(by=['transactions'], ascending=False)
+print('\Browser Totals: \n', browser_grouped_df)
 
 
 '''

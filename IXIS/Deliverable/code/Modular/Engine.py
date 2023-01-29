@@ -437,6 +437,7 @@ plt.clf()
 Print the highest ECR, by device and browser, for the current month
 
 '''
+ECR_raw_df = sheet2_viz_df.filter(items=['Device', 'Browser', 'New_ECR'])
 ECR_raw_df = ECR_raw_df.sort_values(by=['New_ECR'], ascending=False)
 ECR_raw_df.columns = ['Device', 'Browser', 'Curr ECR']
 
